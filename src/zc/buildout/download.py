@@ -39,10 +39,13 @@ class URLOpener(urllib.FancyURLopener):
     def _do_url_replacements(self, url):
         github_auth_user = os.environ.get("S1_GITHUB_USER")
         github_auth_password = os.environ.get("S1_GITHUB_PASSWORD")
+        github_org = os.environ.get("S1_GITHUB_ORG") or "sporting-innovations"
 
         if github_auth_user and github_auth_password:
             url = url.replace("%7BGITHUB_USER%7D", github_auth_user)
             url = url.replace("%7BGITHUB_PASSWORD%7D", github_auth_password)
+
+        url = url.replace("%7BGITHUB_ORG%7D", github_org)
 
         return url
 
